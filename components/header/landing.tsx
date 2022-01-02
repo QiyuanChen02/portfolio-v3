@@ -9,7 +9,7 @@ const Landing: React.FC = () => {
         <div className="landing">
             <h1>Qiyuan Chen</h1>
             <h2>Future Web Dev</h2>
-            <button onClick={toggleModal}>Let's Talk!</button>
+            <button onClick={toggleModal}>Let&apos;s Talk!</button>
         </div>
     )
 }

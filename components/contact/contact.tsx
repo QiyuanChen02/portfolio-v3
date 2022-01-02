@@ -12,7 +12,7 @@ const Contact: React.FC = () => {
             <section className={`contact ${modalActive ? "active" : ""}`} id="contact">
                 <button className="close-modal" onClick={toggleModal}>&times;</button>
                 <div className="form-header">
-                    <h3>Let's Talk</h3>
+                    <h3>Let&apos;s Talk</h3>
                 </div>
                 <form action="https://formsubmit.co/d15cb9f833036aa19e3200df1c447db4" method="POST">
                     <input type="hidden" name="_captcha" value="false" />
