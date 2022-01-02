@@ -1,0 +1,176 @@
+header {
+    height: clamp(500px, 100vh, 800px);
+    color: var(--light-text-color);
+    position: relative;
+}
+
+.chevron * {
+    pointer-events: none;
+}
+
+.chevron > svg {
+    width: 5rem;
+    height: 5rem;
+    animation: move-chevron 2s linear infinite;
+}
+
+.chevron > svg path {
+    fill: var(--light-text-color);
+}
+
+.chevron {
+    position: absolute;
+    cursor: pointer;
+    left: 50%;
+    transform: translate(-50%, -2rem);
+    bottom: 0;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 3rem;
+    background-color: hsla(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .chevron.moved {
+    position: fixed;
+    bottom: 3em;
+    left: auto;
+    right: 3em;
+    transform: rotate(180deg);
+    background-color: var(--accent-color);
+}
+
+.chevron.moved svg {
+    animation: none;
+} */
+
+@keyframes move-chevron {
+    0% {
+        transform: translateY(-0.5rem);
+    }
+    50% {
+        transform: translateY(0.5rem);
+    }
+    100% {
+        transform: translateY(-0.5rem);
+    }
+}
+
+/* All initial animations */
+h1, h2 {
+    animation: animate-title 1.5s ease-in;
+    animation-fill-mode: both;
+    text-shadow: 0 0 10px var(--glowing-color),
+    0 0 20px var(--glowing-color),
+    0 0 40px var(--glowing-color),
+    0 0 80px var(--glowing-color); 
+}
+
+.topbar, .landing button {
+    animation: animate-other 1.5s ease-in;
+    animation-fill-mode: both;
+}
+
+@keyframes animate-title {
+    0% {
+        opacity: 0;
+        color: var(--dark-background-colour);
+    } 100% {
+        opacity: 1;
+        color: var(--light-text-color);
+    }
+}
+
+@keyframes animate-other {
+    0% {
+        opacity: 0;
+    } 100% {
+        opacity: 1;
+    }
+}
+
+/* Topbar styles */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation-delay: 2s;
+    padding: 3rem;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 3rem;
+}
+
+nav li {
+    list-style-type: none;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+nav li:hover {
+    text-shadow: 0 0 10px var(--glowing-color),
+    0 0 20px var(--glowing-color),
+    0 0 40px var(--glowing-color),
+    0 0 80px var(--glowing-color);
+}
+
+.topbar svg {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+/* Landing page styles */
+.landing {
+    max-width: 75vw;
+    margin: 9rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+}
+
+h1, h2 {
+    text-align: center;
+    letter-spacing: 1rem;
+}
+
+h1 {
+    font-size: 9rem;
+}
+
+h2 {
+    font-size: 4rem;
+    animation-delay: 1s;
+}
+
+.landing button {
+    animation-delay: 2s;
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+    margin-top: 1rem;
+    box-shadow: none;
+}
+
+/* May still change to glowing */
+.landing button:hover {
+    box-shadow: 0 0 10px var(--accent-glowing-color),
+    0 0 20px var(--accent-glowing-color),
+    0 0 40px var(--accent-glowing-color),
+    0 0 80px var(--accent-glowing-color);
+}
+
+/* Canvas styling */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
