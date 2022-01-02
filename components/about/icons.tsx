@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-import "./about.css";
 
 import { getIntersectionObserver } from "../../usefulfunctions";
 

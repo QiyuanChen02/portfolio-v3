@@ -1,14 +1,10 @@
 import React, { useRef, useEffect } from "react";
-import "./projects.css";
 
 // @ts-ignore
 import Tilt from 'react-tilt';
 
-//Import collision simulator
-import collisionSim from "./images/collision-sim.png";
-import sendMeAThought from "./images/sendmeathought.png";
-
 import { linkTo, getIntersectionObserver } from "../../usefulfunctions";
+import Image from "next/image";
 
 const Projects: React.FC = () => {
     const tiltOptions = {
@@ -49,7 +45,7 @@ const Projects: React.FC = () => {
             <Tilt options={tiltOptions}>
                 <div className="card"> 
                     <div className="card-image">
-                        <img className="yesmyqueen" src={collisionSim} alt="Collision simulator" />
+                        <Image className="yesmyqueen" src="/images/collision-sim.png" layout="fill" alt="Collision simulator" />
                     </div>
                     <div className="card-info">
                         <h4>Collision Simulator</h4>
@@ -63,7 +59,7 @@ const Projects: React.FC = () => {
             <Tilt options={tiltOptions}>
                 <div className="card reverse"> 
                     <div className="card-image">
-                        <img className="yesmyqueen" src={sendMeAThought} alt="Send me a thought" />
+                        <Image className="yesmyqueen" src="/images/sendmeathought.png" layout="fill" alt="Collision simulator"/>
                     </div>
                     <div className="card-info">
                         <h4>Send Me A Thought</h4>

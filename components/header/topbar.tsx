@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import "./header.css";
+import React from "react";
 
 import { useModalUpdate } from "../../contexts/modalcontext";
 import { linkTo, reloadPage } from "../../usefulfunctions";

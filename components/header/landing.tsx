@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import "./header.css";
+import React from "react";
 
 import { useModalUpdate } from "../../contexts/modalcontext";
 
-const TopBar: React.FC = () => {
+const Landing: React.FC = () => {
 
     const toggleModal = useModalUpdate();
     return (
@@ -15,4 +14,4 @@ const TopBar: React.FC = () => {
     )
 }
 
-export default TopBar;
+export default Landing;

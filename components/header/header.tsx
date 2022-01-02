@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./header.css";
 
 import Topbar from "./topbar";
 import Landing from "./landing";
@@ -8,25 +7,19 @@ import { linkTo } from "../../usefulfunctions";
 
 const Header: React.FC = () => {
 
-    //Gets the size of the div
-    const [headerSize, setHeaderSize] = useState<number[]>([]);
-    const [windowSize, setWindowSize] = useState<number[]>([0, 0]);
-
     const header = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        if (header.current !== null) {
-            setHeaderSize([header.current.offsetWidth, header.current.offsetHeight]);
-        }
-    }, [windowSize]);
 
-    //Change size of canvas when resized
+    //Gets the size of the header div
+    const [headerSize, setHeaderSize] = useState<number[]>([]);
     useEffect(() => {
         const handleResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
+            setHeaderSize([header.current!.offsetWidth, header.current!.offsetHeight]);
         }
         window.addEventListener("resize", handleResize);
+        window.addEventListener("load", handleResize);
         return () => {
             window.removeEventListener("resize", handleResize);
+            window.removeEventListener("load", handleResize);
         }
     }, []);
 

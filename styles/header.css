@@ -2,6 +2,7 @@ header {
     height: clamp(500px, 100vh, 800px);
     color: var(--light-text-color);
     position: relative;
+    overflow-x: hidden;
 }
 
 .chevron * {
@@ -169,6 +170,7 @@ h2 {
 /* Canvas styling */
 canvas {
     position: absolute;
+    background-color: rgb(42, 27, 61);
     top: 0;
     left: 0;
     z-index: -1;

@@ -29,18 +29,14 @@
     transition: opacity 1s;
 }
 
-.about svg {
-    width: 16rem;
-    height: 18rem;
-    position: relative;
-    filter: contrast(100%) grayscale(10%);
-}
-
-svg:hover {
-    filter: contrast(110%) grayscale(0%);
-}
-
 .icons div.appear {
     opacity: 1;
     transform: translateY(0);
 }
+
+.about svg {
+    width: 16rem;
+    height: 18rem;
+    position: relative;
+}
+

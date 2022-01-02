@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "./contact.css";
 
 import { useModal, useModalUpdate } from "../../contexts/modalcontext";
 

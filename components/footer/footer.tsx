@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useContext } from "react";
-import "./footer.css";
 
 import { linkTo, getIntersectionObserver } from "../../usefulfunctions";
 
