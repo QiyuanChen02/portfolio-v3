@@ -31,6 +31,12 @@ const Settings: React.FC<SettingsProps> = ({ toggleParticleSettings }) => {
 
 	const [settingVisible, setSettingVisible] = useState<boolean>(false);
 
+	//This code fixes visual bug on load
+	const [visiblility, setVisibility] = useState<"visible" | "hidden">("hidden");
+	useEffect(() => {
+		setVisibility("visible");
+	}, []);
+
 	//Interacting with the slider
 	useEffect(() => {
 		const slider = interact(".slider");
@@ -61,7 +67,7 @@ const Settings: React.FC<SettingsProps> = ({ toggleParticleSettings }) => {
 	}, []);
 
 	return (
-		<section className={`settings ${settingVisible ? "active" : ""}`}>
+		<section className={`settings ${settingVisible ? "active" : ""}`} style={{ visibility: visiblility }}>
 			<div className="sliderText">
 				<p>Particle speed: </p>
 				<p>{sliderInfo.speed}</p>

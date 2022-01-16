@@ -20,9 +20,9 @@ canvas {
 	gap: 2rem;
 }
 
-.settings .slider,
+.slider,
 .sliderText,
-button {
+.settings button {
 	opacity: 0;
 	transition: opacity 1s;
 }
