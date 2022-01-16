@@ -1,63 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap");
 
 :root {
-  --dark-background-colour: rgb(42, 27, 61);
-  --light-text-color: hsl(0, 0%, 92%);
-  --glowing-color: hsl(200, 66%, 70%);
-  --accent-color: hsl(332, 66%, 55%);
-  --accent-glowing-color: hsl(332, 75%, 40%);
-  --accent-color-2: hsl(264, 50%, 60%);
+	--dark-background-colour: rgb(42, 27, 61);
+	--light-text-color: hsl(0, 0%, 92%);
+	--glowing-color: hsl(199, 47%, 64%);
+	--accent-color: hsl(332, 66%, 55%);
+	--accent-glowing-color: hsl(332, 75%, 40%);
+	--accent-color-2: hsl(264, 50%, 60%);
 
-  font-size: calc(5px + 0.5vmin);
-  font-family: 'Raleway', sans-serif;
-  scroll-behavior: smooth;
+	font-size: calc(5px + 0.5vmin);
+	font-family: "Raleway", sans-serif;
+	scroll-behavior: smooth;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 section {
-  padding-top: 16rem;
+	padding-top: 16rem;
 }
 
 svg * {
-  pointer-events: none;
+	pointer-events: none;
 }
 
 /* Style for all buttons */
 button {
-  cursor: pointer;
-  border: none;
-  font-size: 2rem;
-  width: 20rem;
-  height: 6rem;
-  border-radius: 3rem;
+	cursor: pointer;
+	border: none;
+	font-size: 2rem;
+	width: 20rem;
+	height: 6rem;
+	border-radius: 3rem;
 }
 
 /* Styled here since it occurs across different components */
 h3 {
-  margin-bottom: 4rem;
-  font-size: 7rem;
-  text-align: center;
-  position: relative;
+	margin-bottom: 4rem;
+	font-size: 7rem;
+	text-align: center;
+	position: relative;
 }
 
 h3::after {
-  content: "";
-  position: absolute;
-  bottom: -1.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 5rem;
-  height: 3px;
-  background-color: var(--accent-color-2);
+	content: "";
+	position: absolute;
+	bottom: -1.2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 5rem;
+	height: 3px;
+	background-color: var(--accent-color-2);
 }

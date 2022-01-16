@@ -1,0 +1,93 @@
+/* Canvas styling */
+canvas {
+	position: absolute;
+	background-color: rgb(42, 27, 61);
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.settings {
+	padding: 30px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background-color: hsl(266, 40%, 27%, 0);
+	transition: background-color 1s;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.settings .slider,
+.sliderText,
+button {
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+.settingsWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.settings.active {
+	background-color: hsl(266, 40%, 27%, 1);
+}
+
+.settings.active * {
+	opacity: 1;
+}
+
+.settings svg {
+	width: 5rem;
+	height: 5rem;
+	margin-top: 2rem;
+	fill: var(--light-text-color);
+	cursor: pointer;
+}
+
+.settings button {
+	margin-left: auto;
+	margin-top: 2rem;
+}
+
+.settings svg:hover,
+.settings button:hover {
+	filter: drop-shadow(0 0 10px var(--glowing-color))
+		drop-shadow(0 0 20px var(--glowing-color))
+		drop-shadow(0 0 40px var(--glowing-color))
+		drop-shadow(0 0 80px var(--glowing-color)) opacity(95%);
+}
+
+/* the slider bar */
+.slider {
+	--slider-height: 1.3rem;
+	position: relative;
+	width: 30rem;
+	height: var(--slider-height);
+	background-color: var(--light-text-color);
+	border-radius: calc(var(--slider-height) / 2);
+	touch-action: none;
+}
+
+/* the slider handle */
+.slider:before {
+	content: "";
+	display: block;
+	position: relative;
+	top: calc(-0.5 * var(--slider-height));
+	width: calc(2 * var(--slider-height));
+	height: calc(2 * var(--slider-height));
+	margin-left: calc(-1 * var(--slider-height));
+	border-radius: calc(1 * var(--slider-height));
+	background-color: inherit;
+}
+
+.sliderText {
+	display: flex;
+	justify-content: space-between;
+	font-size: 2rem;
+}

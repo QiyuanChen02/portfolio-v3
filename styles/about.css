@@ -1,42 +1,41 @@
 .about {
-    background-color: white;
-    padding-left: 10vw;
-    padding-right: 10vw;
+	background-color: white;
+	padding-left: 10vw;
+	padding-right: 10vw;
 }
 
 .about p {
-    font-size: 2rem;
-    line-height: 3rem;
-    text-align: center;
+	font-size: 2rem;
+	line-height: 3rem;
+	text-align: center;
 }
 
 .icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 .icons div {
-    margin: 5rem;
-    opacity: 0;
-    transform: translateY(-10rem);
-    transition: opacity 1s, transform 1s;
+	margin: 5rem;
+	opacity: 0;
+	transform: translateY(-10rem);
+	transition: opacity 1s, transform 1s;
 }
 
 .icons p {
-    font-weight: bold;
-    transition: opacity 1s;
+	font-weight: bold;
+	transition: opacity 1s;
 }
 
 .icons div.appear {
-    opacity: 1;
-    transform: translateY(0);
+	opacity: 1;
+	transform: translateY(0);
 }
 
 .about svg {
-    width: 16rem;
-    height: 18rem;
-    position: relative;
+	width: 16rem;
+	height: 18rem;
+	position: relative;
 }
-

@@ -1,151 +1,183 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import Settings, { SliderInfo } from "./settings";
 
 type Velocity = {
-    x: number; 
-    y: number;
+	x: number;
+	y: number;
 };
 
 type IsParticle = {
-    x: number;
-    y: number;
-    radius: number;
-    velocity: Velocity;
-    colour: string;
-    draw(c: CanvasRenderingContext2D): void;
-    update(width: number, height: number): void;
-}
+	x: number;
+	y: number;
+	radius: number;
+	velocity: Velocity;
+	colour: string;
+	draw(c: CanvasRenderingContext2D): void;
+	update(width: number, height: number): void;
+};
+
+type ParticleSettings = {
+	velocityEl: number;
+	minRadiusEl: number;
+	maxRadiusEl: number;
+	noParticlesEl: number;
+};
 
 type CanvasProps = {
-    width: number;
-    height: number;
-}
+	width: number;
+	height: number;
+};
 
 //Utility function
 function randomInteger(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 //Colours
 const colourPalette: string[] = [
-    "hsl(29, 86%, 77%)",
-    "hsl(7, 86%, 77%)",
-    "hsl(311, 86%, 77%)",
-    "hsl(266, 86%, 77%)",
-    "hsl(226, 86%, 77%)"
-]
-
-//Particle info
-const velocityEl = 1;
-const minRadiusEl = 1;
-const maxRadiusEl = 1;
-const noParticlesEl = 20;
+	"hsl(29, 86%, 77%)",
+	"hsl(7, 86%, 77%)",
+	"hsl(311, 86%, 77%)",
+	"hsl(266, 86%, 77%)",
+	"hsl(226, 86%, 77%)",
+];
 
 //Defines particle objects
-class Particles{
+class Particles {
+	constructor(
+		public radius: number,
+		public x: number,
+		public y: number,
+		public velocity: Velocity,
+		public colour: string
+	) { }
 
-    constructor(
-        public radius: number,
-        public x: number,
-        public y: number,
-        public velocity: Velocity,
-        public colour: string,
-    ){}
+	//Draws particles
+	draw(c: CanvasRenderingContext2D) {
+		c.beginPath();
+		c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+		c.fillStyle = this.colour;
+		c.fill();
+		c.closePath();
+	}
 
-    //Draws particles
-    draw(c: CanvasRenderingContext2D){
-        
-        c.beginPath();
-        c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-        c.fillStyle = this.colour;
-        c.fill();
-        c.closePath();
-        
-    }
+	//Updates position of particles
+	update(width: number, height: number) {
+		this.x += this.velocity.x;
+		this.y += this.velocity.y;
 
-    //Updates position of particles
-    update(width: number, height: number){
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
+		//Bounces particles off walls
+		if (this.x - this.radius < 0 || this.x + this.radius > width) {
+			this.velocity.x = -1 * this.velocity.x;
+			if (this.x - this.radius < 0) {
+				this.x = this.radius + 0.1;
+			} else {
+				this.x = width - this.radius - 0.1;
+			}
+		}
 
-        //Bounces particles off walls
-        if (this.x - this.radius < 0 || this.x + this.radius > width){
-            this.velocity.x = -1 * this.velocity.x;
-            if (this.x - this.radius < 0){
-                this.x = this.radius + 0.1;
-            } else {
-                this.x = width - this.radius - 0.1;
-            }
-        }
-
-        if (this.y - this.radius < 0 || this.y + this.radius > height){
-            this.velocity.y = -1 * this.velocity.y;
-            if (this.y - this.radius < 0){
-                this.y = this.radius + 0.1;
-            } else {
-                this.y = height - this.radius - 0.1;
-            }
-        } 
-    }
+		if (this.y - this.radius < 0 || this.y + this.radius > height) {
+			this.velocity.y = -1 * this.velocity.y;
+			if (this.y - this.radius < 0) {
+				this.y = this.radius + 0.1;
+			} else {
+				this.y = height - this.radius - 0.1;
+			}
+		}
+	}
 }
 
 const Canvas: React.FC<CanvasProps> = ({ width, height }) => {
+	//Getting info for canvas
+	const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    //Getting info for canvas
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+	const [particleSettings, setParticleSettings] = useState<ParticleSettings>({
+		velocityEl: 1,
+		minRadiusEl: 1,
+		maxRadiusEl: 1,
+		noParticlesEl: 20,
+	});
 
-    //Draws the canvas
-    useEffect(() => {
-        const canvas = canvasRef.current!;
-        const c = canvas.getContext("2d")!;
-        canvas.width = width;
-        canvas.height = height;
+	const toggleParticleSettings = ({
+		speed,
+		size,
+		sizerange,
+		number,
+	}: SliderInfo) => {
+		setParticleSettings({
+			velocityEl: speed,
+			minRadiusEl: Math.max(size - Math.floor(sizerange / 2), 0),
+			maxRadiusEl: size + Math.floor(sizerange + 1 / 2),
+			noParticlesEl: number,
+		});
+	};
 
-        //Defines the initial conditions for the particles
-        let particles: IsParticle[];
-        function init(){
-            particles = [];
-            const numberParticles = noParticlesEl;
+	//Draws the canvas
+	useEffect(() => {
+		const canvas = canvasRef.current!;
+		const c = canvas.getContext("2d")!;
+		canvas.width = width;
+		canvas.height = height;
+		const { velocityEl, minRadiusEl, maxRadiusEl, noParticlesEl } =
+			particleSettings;
 
-            //Sets the position of the particles, making sure they're not generated on top of each other
-            for (let i = 0; i < numberParticles; i++){
-                const radius = randomInteger(minRadiusEl, maxRadiusEl);
-                const x = randomInteger(radius, width - radius);
-                const y = randomInteger(radius, height - radius);
+		//Defines the initial conditions for the particles
+		let particles: IsParticle[];
+		function init() {
+			particles = [];
+			const numberParticles = noParticlesEl;
 
-                const colour = colourPalette[Math.floor(Math.random() * colourPalette.length)];
+			//Sets the position of the particles, making sure they're not generated on top of each other
+			for (let i = 0; i < numberParticles; i++) {
+				const radius = randomInteger(minRadiusEl, maxRadiusEl);
+				const x = randomInteger(radius, width - radius);
+				const y = randomInteger(radius, height - radius);
 
-                const velocity: Velocity = {
-                    x: x > width/2 ? velocityEl : -velocityEl,
-                    y: y > height/2 ? velocityEl : -velocityEl
-                }
-                const particle: IsParticle = new Particles(radius, x, y, velocity, colour);
-                particles.push(particle); 
-            }
-        }
-        
-        let animationID: number;
-        const animate = () => {
-            animationID = requestAnimationFrame(animate);
-            c.fillStyle = "rgba(42, 27, 61, 0.2)";
-            c.fillRect(0, 0, width, height);
-            for (var i = 0; i < particles.length; i++){
-                particles[i].update(width, height);
-                particles[i].draw(c);
-            }
-        }
+				const colour =
+					colourPalette[
+					Math.floor(Math.random() * colourPalette.length)
+					];
 
-        init();
-        animate();
+				const velocity: Velocity = {
+					x: x > width / 2 ? velocityEl : -velocityEl,
+					y: y > height / 2 ? velocityEl : -velocityEl,
+				};
+				const particle: IsParticle = new Particles(
+					radius,
+					x,
+					y,
+					velocity,
+					colour
+				);
+				particles.push(particle);
+			}
+		}
 
-        return () => {
-            cancelAnimationFrame(animationID);
-        }
+		let animationID: number;
+		const animate = () => {
+			animationID = requestAnimationFrame(animate);
+			c.fillStyle = "rgba(42, 27, 61, 0.2)";
+			c.fillRect(0, 0, width, height);
+			for (var i = 0; i < particles.length; i++) {
+				particles[i].update(width, height);
+				particles[i].draw(c);
+			}
+		};
 
-    }, [canvasRef, height, width]);
+		init();
+		animate();
 
-    return (
-        <canvas ref={canvasRef}/>
-    );
-}
+		return () => {
+			cancelAnimationFrame(animationID);
+		};
+	}, [canvasRef, height, width, particleSettings]);
 
-export default Canvas
+	return (
+		<>
+			<Settings toggleParticleSettings={toggleParticleSettings} />
+			<canvas ref={canvasRef} />
+		</>
+	);
+};
+
+export default Canvas;
