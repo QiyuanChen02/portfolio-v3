@@ -24,6 +24,7 @@ canvas {
 .sliderText,
 .settings button {
 	opacity: 0;
+	pointer-events: none;
 	transition: opacity 1s;
 }
 
@@ -38,6 +39,7 @@ canvas {
 }
 
 .settings.active * {
+	pointer-events: all;
 	opacity: 1;
 }
 
