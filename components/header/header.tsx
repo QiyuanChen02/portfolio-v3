@@ -6,37 +6,12 @@ import Canvas from "./canvas";
 import { linkTo } from "../../usefulfunctions";
 
 const Header: React.FC = () => {
-	const header = useRef<HTMLDivElement>(null);
-
-	//Gets the size of the header div
-	const [headerSize, setHeaderSize] = useState<number[]>([0, 0]);
-	useEffect(() => {
-		const handleResize = () => {
-			setHeaderSize([
-				header.current!.offsetWidth,
-				header.current!.offsetHeight,
-			]);
-		};
-		window.addEventListener("resize", handleResize);
-		window.addEventListener("load", handleResize);
-		return () => {
-			window.removeEventListener("resize", handleResize);
-			window.removeEventListener("load", handleResize);
-		};
-	}, []);
-
-	//Prints secret info about the page
-	useEffect(() => {
-		console.log(
-			"Psst...Hey fellow developer looking through my code, there's a secret place you can chat with me, at http://twitch.tv/failtowinbot ;)"
-		);
-	}, []);
 
 	return (
-		<header ref={header} id="header">
+		<header id="header">
 			<Topbar />
 			<Landing />
-			<Canvas width={headerSize[0]} height={headerSize[1]} />
+			<Canvas />
 
 			{/* Pointing chevron */}
 			<div data-location="#projects" onClick={linkTo} className="chevron">

@@ -34,19 +34,6 @@ header {
 	justify-content: center;
 }
 
-/* .chevron.moved {
-    position: fixed;
-    bottom: 3em;
-    left: auto;
-    right: 3em;
-    transform: rotate(180deg);
-    background-color: var(--accent-color);
-}
-
-.chevron.moved svg {
-    animation: none;
-} */
-
 @keyframes move-chevron {
 	0% {
 		transform: translateY(-0.5rem);

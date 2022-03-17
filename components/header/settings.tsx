@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import interact from "interactjs";
+import { Slider } from "@mui/material"
 
 export type SliderInfo = {
 	speed: number;
@@ -8,14 +8,12 @@ export type SliderInfo = {
 	number: number;
 };
 
-const returnPadding = (value: number, maxValue: number) => value / maxValue * 100 + "%"
-
-const maxSliderValue: SliderInfo = {
-	speed: 100,
-	size: 100,
-	sizerange: 100,
-	number: 400,
-}
+// const maxSliderValue: SliderInfo = {
+// 	speed: 100,
+// 	size: 100,
+// 	sizerange: 100,
+// 	number: 400,
+// }
 
 type SettingsProps = {
 	toggleParticleSettings: (newSettings: SliderInfo) => void;
@@ -31,63 +29,49 @@ const Settings: React.FC<SettingsProps> = ({ toggleParticleSettings }) => {
 
 	const [settingVisible, setSettingVisible] = useState<boolean>(false);
 
-	//This code fixes visual bug on load
-	const [visiblility, setVisibility] = useState<"visible" | "hidden">("hidden");
-	useEffect(() => {
-		setVisibility("visible");
-	}, []);
-
-	//Interacting with the slider
-	useEffect(() => {
-		const slider = interact(".slider");
-		slider.draggable({
-			origin: "self",
-			inertia: true,
-			modifiers: [
-				interact.modifiers.restrict({
-					restriction: "self",
-				}),
-			],
-
-			listeners: {
-				move(e) {
-					const sliderWidth = interact.getElementRect(e.target).width;
-					const value = e.pageX / sliderWidth;
-
-					const sliderType: string = e.target.getAttribute("data-slidertype");
-					setSliderInfo((sliderInfo) => {
-						return {
-							...sliderInfo,
-							[sliderType]: Math.round(value * maxSliderValue[sliderType as keyof SliderInfo]),
-						};
-					});
-				},
-			},
+	const handleSliderChange = (sliderType: string, value: number) => {
+		setSliderInfo((sliderInfo) => {
+			return {
+				...sliderInfo,
+				[sliderType]: sliderType === "number" ? Math.round(value * 5) : value,
+			};
 		});
-	}, []);
+	}
 
 	return (
-		<section className={`settings ${settingVisible ? "active" : ""}`} style={{ visibility: visiblility }}>
+		<section className={`settings ${settingVisible ? "active" : ""}`}>
 			<div className="sliderText">
 				<p>Particle speed: </p>
 				<p>{sliderInfo.speed}</p>
 			</div>
-			<div className="slider" data-slidertype="speed" data-value={sliderInfo.speed} style={{ paddingLeft: returnPadding(sliderInfo.speed, maxSliderValue.speed) }}></div>
+			<Slider
+				value={sliderInfo.speed}
+				onChange={(event, newValue) => typeof newValue === "number" ? handleSliderChange("speed", newValue) : null}
+			/>
 			<div className="sliderText">
 				<p>Particle size: </p>
 				<p>{sliderInfo.size}</p>
 			</div>
-			<div className="slider" data-slidertype="size" data-value={sliderInfo.size} style={{ paddingLeft: returnPadding(sliderInfo.size, maxSliderValue.size) }}></div>
+			<Slider
+				value={sliderInfo.size}
+				onChange={(event, newValue) => typeof newValue === "number" ? handleSliderChange("size", newValue) : null}
+			/>
 			<div className="sliderText">
 				<p>Range of particle size: </p>
 				<p>{sliderInfo.sizerange}</p>
 			</div>
-			<div className="slider" data-slidertype="sizerange" data-value={sliderInfo.sizerange} style={{ paddingLeft: returnPadding(sliderInfo.sizerange, maxSliderValue.sizerange) }}></div>
+			<Slider
+				value={sliderInfo.sizerange}
+				onChange={(event, newValue) => typeof newValue === "number" ? handleSliderChange("sizerange", newValue) : null}
+			/>
 			<div className="sliderText">
 				<p>Number of particles: </p>
 				<p>{sliderInfo.number}</p>
 			</div>
-			<div className="slider" data-slidertype="number" data-value={sliderInfo.number} style={{ paddingLeft: returnPadding(sliderInfo.number, maxSliderValue.number) }}></div>
+			<Slider
+				value={Math.round(sliderInfo.number / 5)}
+				onChange={(event, newValue) => typeof newValue === "number" ? handleSliderChange("number", newValue) : null}
+			/>
 
 			<div className="settingsWrapper">
 				<svg

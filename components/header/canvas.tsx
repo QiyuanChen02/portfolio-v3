@@ -23,11 +23,6 @@ type ParticleSettings = {
 	noParticlesEl: number;
 };
 
-type CanvasProps = {
-	width: number;
-	height: number;
-};
-
 //Utility function
 function randomInteger(min: number, max: number): number {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -87,9 +82,19 @@ class Particles {
 	}
 }
 
-const Canvas: React.FC<CanvasProps> = ({ width, height }) => {
+const Canvas: React.FC = () => {
 	//Getting info for canvas
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+
+	useEffect(() => {
+		if (canvasRef.current) {
+			const canvas = canvasRef.current
+			canvas.style.width = '100%';
+			canvas.style.height = '100%';
+			canvas.width = canvas.offsetWidth;
+			canvas.height = canvas.offsetHeight;
+		}
+	}, [canvasRef])
 
 	const [particleSettings, setParticleSettings] = useState<ParticleSettings>({
 		velocityEl: 1,
@@ -116,8 +121,7 @@ const Canvas: React.FC<CanvasProps> = ({ width, height }) => {
 	useEffect(() => {
 		const canvas = canvasRef.current!;
 		const c = canvas.getContext("2d")!;
-		canvas.width = width;
-		canvas.height = height;
+
 		const { velocityEl, minRadiusEl, maxRadiusEl, noParticlesEl } =
 			particleSettings;
 
@@ -130,8 +134,8 @@ const Canvas: React.FC<CanvasProps> = ({ width, height }) => {
 			//Sets the position of the particles, making sure they're not generated on top of each other
 			for (let i = 0; i < numberParticles; i++) {
 				const radius = randomInteger(minRadiusEl, maxRadiusEl);
-				const x = randomInteger(radius, width - radius);
-				const y = randomInteger(radius, height - radius);
+				const x = randomInteger(radius, canvas.width - radius);
+				const y = randomInteger(radius, canvas.height - radius);
 
 				const colour =
 					colourPalette[
@@ -139,8 +143,8 @@ const Canvas: React.FC<CanvasProps> = ({ width, height }) => {
 					];
 
 				const velocity: Velocity = {
-					x: x > width / 2 ? velocityEl : -velocityEl,
-					y: y > height / 2 ? velocityEl : -velocityEl,
+					x: x > canvas.width / 2 ? velocityEl : -velocityEl,
+					y: y > canvas.height / 2 ? velocityEl : -velocityEl,
 				};
 				const particle: IsParticle = new Particles(
 					radius,
@@ -157,9 +161,9 @@ const Canvas: React.FC<CanvasProps> = ({ width, height }) => {
 		const animate = () => {
 			animationID = requestAnimationFrame(animate);
 			c.fillStyle = "rgba(42, 27, 61, 0.2)";
-			c.fillRect(0, 0, width, height);
+			c.fillRect(0, 0, canvas.width, canvas.height);
 			for (var i = 0; i < particles.length; i++) {
-				particles[i].update(width, height);
+				particles[i].update(canvas.width, canvas.height);
 				particles[i].draw(c);
 			}
 		};
@@ -170,7 +174,7 @@ const Canvas: React.FC<CanvasProps> = ({ width, height }) => {
 		return () => {
 			cancelAnimationFrame(animationID);
 		};
-	}, [canvasRef, height, width, particleSettings]);
+	}, [canvasRef, particleSettings]);
 
 	return (
 		<>
