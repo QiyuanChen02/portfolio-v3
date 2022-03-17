@@ -21,13 +21,6 @@ const Home: NextPage = () => {
 					name="description"
 					content="Qiyuan Chen - Web Developer"
 				/>
-				<meta
-					name="google-site-verification"
-					content="kdneloSQ0PwwiRiT9KcwZ0FjJnJeJZ48dQYX2w6stt4"
-				/>
-				<script
-					async
-					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1857182486296961"></script>
 				<title>Qiyuan Chen</title>
 			</Head>
 			<ModalProvider>
