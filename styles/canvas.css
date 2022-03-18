@@ -27,11 +27,11 @@ canvas {
 }
 
 .MuiSlider-root {
-	color: var(--light-text-color);
+	color: var(--light-text-color) !important;
 }
 
 .MuiSlider-thumb:hover {
-	box-shadow: none;
+	box-shadow: none !important;
 }
 
 .settingsWrapper {
