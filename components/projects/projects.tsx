@@ -1,10 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 // @ts-ignore
 import Tilt from "react-tilt";
 
-import { linkTo, getIntersectionObserver } from "../../usefulfunctions";
 import Image from "next/image";
+import { getIntersectionObserver, linkTo } from "../../usefulfunctions";
 
 const Projects: React.FC = () => {
 	const tiltOptions = {
@@ -69,20 +69,19 @@ const Projects: React.FC = () => {
 					<div className="card-image">
 						<Image
 							className="yesmyqueen"
-							src="/images/sendmeathought.png"
+							src="/images/extraemily.png"
 							layout="fill"
-							alt="Collision simulator"
+							alt="Extra Emily's website link"
 						/>
 					</div>
 					<div className="card-info">
-						<h4>Send Me A Thought</h4>
+						<h4>ExtraEmily&apos;s Website</h4>
 						<p>
-							A site to let people reveal their thoughts
-							anonymously
+							A site I made for a popular Twitch streamer to link to her socials
 						</p>
 						<div>
 							<button
-								data-location="https://sendmeathought.herokuapp.com/"
+								data-location="https://extraemily.vercel.app/"
 								onClick={linkTo}>
 								View Project
 							</button>
