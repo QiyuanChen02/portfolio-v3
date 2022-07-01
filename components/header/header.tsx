@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 
-import Topbar from "./topbar";
-import Landing from "./landing";
-import Canvas from "./canvas";
 import { linkTo } from "../../usefulfunctions";
+import Canvas from "./canvas";
+import Landing from "./landing";
+import Topbar from "./topbar";
 
 const Header: React.FC = () => {
 
