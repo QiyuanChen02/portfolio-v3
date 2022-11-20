@@ -1,18 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
-// @ts-ignore
-import Tilt from "react-tilt";
-
 import Image from "next/image";
 import { getIntersectionObserver, linkTo } from "../../usefulfunctions";
 
 const Projects: React.FC = () => {
-	const tiltOptions = {
-		max: 10,
-		speed: 500,
-		scale: 1.05,
-	};
-
 	const projectsRef = useRef<HTMLElement>(null);
 
 	useEffect(() => {
@@ -39,82 +30,59 @@ const Projects: React.FC = () => {
 	}, [projectsRef]);
 
 	return (
-		<section className="projects" id="projects" ref={projectsRef}>
+		<section ref={projectsRef} className="projects" id="projects">
 			<h3>Projects</h3>
-			<Tilt options={tiltOptions}>
-				<div className="card">
-					<div className="card-image">
-						<Image
-							className="yesmyqueen"
-							src="/images/collision-sim.png"
-							layout="fill"
-							alt="Collision simulator"
-						/>
-					</div>
-					<div className="card-info">
-						<h4>Collision Simulator</h4>
-						<p>A fun project to simulate Brownian Motion</p>
-						<div>
-							<button
-								data-location="http://collision-sim.netlify.app/"
-								onClick={linkTo}>
-								View Project
-							</button>
-						</div>
-					</div>
-				</div>
-			</Tilt>
-			<Tilt options={tiltOptions}>
-				<div className="card reverse">
-					<div className="card-image">
-						<Image
-							className="yesmyqueen"
-							src="/images/extraemily.png"
-							layout="fill"
-							alt="Extra Emily's website link"
-						/>
-					</div>
-					<div className="card-info">
-						<h4>ExtraEmily&apos;s Website</h4>
-						<p>
-							A site I made for a popular Twitch streamer to link to her socials
-						</p>
-						<div>
-							<button
-								data-location="https://extraemily.vercel.app/"
-								onClick={linkTo}>
-								View Project
-							</button>
-						</div>
-					</div>
-				</div>
-			</Tilt>
-			<Tilt options={tiltOptions}>
-				<div className="card">
-					<div className="card-image">
-						<Image
-							className="yesmyqueen"
-							src="/images/fastchat.png"
-							layout="fill"
-							alt="Collision simulator"
-						/>
-					</div>
-					<div className="card-info">
-						<h4>Fast Chat</h4>
-						<p>
-							Match with an anonymous person and start chatting
-						</p>
-						<div>
-							<button
-								data-location="https://fastchat.app/"
-								onClick={linkTo}>
-								View Project
-							</button>
-						</div>
-					</div>
-				</div>
-			</Tilt>
+			<Card
+				imageSrc="/images/mychilltab.png"
+				imageAlt="My Chill Tab"
+				title="My Chill Tab"
+				text="A productivity website with todo lists, pomodoro timers, chill sounds and much much more (currently in progress)"
+				link="https://mychilltab.vercel.app/"
+			/>
+			<Card
+				imageSrc="/images/greenplates.png"
+				imageAlt="Greenplates"
+				title="Greenplates"
+				text="A website for sharing zero emission cars made for a client"
+				link="https://greenplates.uk/"
+				reverse
+			/>
+			<Card
+				imageSrc="/images/collision-sim.png"
+				imageAlt="Collision Simulator"
+				title="Collision Simulator"
+				text="A fun project to simulate Brownian Motion"
+				link="http://collision-sim.netlify.app/"
+			/>
 		</section>
+	);
+};
+
+type CardType = {
+	imageSrc: string;
+	imageAlt: string;
+	title: string;
+	text: string;
+	link: string;
+	reverse?: boolean;
+};
+
+const Card: React.FC<CardType> = ({ imageSrc, imageAlt, title, text, link, reverse = false }) => {
+	return (
+		<div className={`card ${reverse ? "reverse" : ""}`}>
+			<div className="card-image">
+				<Image src={imageSrc} layout="fill" alt={imageAlt} />
+			</div>
+			<div className="card-info">
+				<h4>{title}</h4>
+				<p>{text}</p>
+				<div>
+					<button data-location={link} onClick={linkTo}>
+						View Project
+					</button>
+				</div>
+			</div>
+		</div>
 	);
 };
 
